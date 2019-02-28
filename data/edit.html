@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+            #h{
+                position: absolute;
+                top: 50px;
+                right: 10px;
+            }
+            #soldpage{
+                padding-top: 110px;
+            }
+            .mainh{
+            display: block;
+            font-size: 2em;
+            color: black;
+            }
+            .btn{
+                width: 20%;
+            }
+            table{
+                margin: 0px auto;
+            }
+            body{
+           background-image: none;
+        }
+            .background{
+            background-image: url(../bg2.jpg);
+            background-position: center;
+         background-repeat: no-repeat;
+         background-size: cover;
+         z-index: -10;
+         width: 100%;
+         height: 100%;
+         position:fixed;
+        }
+        .top{
+            padding-top: 103px;
+        }
+        .smain{
+            padding-top: 10px;
+        }
+            @media only screen and (max-width: 600px) {
+                .btn{
+                    width: 40%;
+                }
+            }
+            </style>
+</head>
+<body>
+    <div class="background">
+        &nbsp;
+    </div>
+    <nav>
+        <h1 id="nav">
+            Sells.pk
+        </h1>
+        <button id="hb" onclick="logoutAdmin()">logout</button>
+    </nav>
+    <div id="top" class="top">
+            <div id="smain" class="smain">
+    <input type="text" id="brand" placeholder="brand">
+    <input type="text" id="name" placeholder="name">
+    <input type="text" id="screen" placeholder="screen">
+    <input type="text" id="camera" placeholder="camera">
+    <input type="text" id="ram" placeholder="ram">
+    <input type="text" id="rom" placeholder="rom">
+    <input type="text" id="battry" placeholder="battry">
+    <button class="btn" onclick="add()">edit</button>
+    <button class="btn" id="cancle">Cancle</button>
+                </div>
+                </div>
+<script>
+            function logoutAdmin(){
+            document.write("Logout your ID Pleas wait..............");
+            setTimeout(function(){ location = "../admin.html"; }, 2000);
+        }
+    var btn = document.getElementById("cancle");
+    btn.addEventListener("click", function(){
+        var prodect = JSON.parse(localStorage.getItem("prodect"));
+        var edit = JSON.parse(localStorage.getItem("edit"));
+        prodect.push(edit[0])
+        localStorage.setItem("prodect", JSON.stringify(prodect));
+        edit.splice(0,1)
+        localStorage.setItem("edit",JSON.stringify(edit));
+        document.write("Cancilation....")
+        setTimeout(function(){
+        location = "./store.html";
+        },1500)
+    })
+    var edit = JSON.parse(localStorage.getItem("edit"));
+    // console.log(edit[0].name)
+    document.getElementById('brand').value = edit[0].brand;
+    document.getElementById('name').value = edit[0].name;
+    document.getElementById('screen').value = edit[0].screen;
+    document.getElementById('camera').value = edit[0].camera;
+    document.getElementById('ram').value = edit[0].ram;
+    document.getElementById('rom').value = edit[0].rom;
+    document.getElementById('battry').value = edit[0].battry;
+function add(){
+    var brand = document.getElementById('brand').value;
+    var name = document.getElementById('name').value;
+    var screen = document.getElementById('screen').value;
+    var camera = document.getElementById('camera').value;
+    var ram = document.getElementById('ram').value;
+    var rom = document.getElementById('rom').value;
+    var battry = document.getElementById('battry').value;
+
+    var addData = new Obj(brand, name,screen,camera,ram,rom,battry)
+
+    function Obj(brand, name, screen, camera, ram, rom, battry){
+        this.brand = brand;
+        this.name  = name;
+        this.screen = screen;
+        this.ram   =  ram;
+        this.rom  =   rom;
+        this.battry =  battry;
+    }
+    var prodect = JSON.parse(localStorage.getItem("prodect"));
+    prodect.push(addData)
+    localStorage.setItem("prodect", JSON.stringify(prodect));
+    edit.splice(0,1)
+        localStorage.setItem("edit",JSON.stringify(edit));
+    document.write("Adding your Data pleas wait....")
+    setTimeout(function(){
+    location = "./store.html"
+    },1500)
+}
+
+</script>
+</body>
+
+</html>

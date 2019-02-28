@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+
+<body class="body" onload="data()">
+    <nav>
+        <h1 id="nav">
+            Sells.pk
+        </h1>
+        <button id="hb" onclick="window.open('./admin.html','_blank')">Admin Panel</button>
+    </nav>
+    <div class="top">
+        <div id="smain">
+            <h1>
+                Login or Signup
+            </h1>
+            <span id="li" class="li">Incorrect Email</span>
+            <input type="email" id="loginId" placeholder="Type your Email" onfocus="classChanger('loginId' , 'li')">
+            <span id="lp" class="lp">Incorrect Password</span>
+            <input type="password" id="loginPassword" placeholder="Type your Password" onfocus="classChanger('loginPassword' , 'lp')">
+            <button onclick="login()">Login</button> <button onclick="goSingup()">Signup</button>
+        </div>
+    </div>
+    <script src="data.js"></script>
+    <script>
+        function goSingup(){
+            document.write("Pleas Wait...")
+            setTimeout(function(){
+                location = "./signup.html"
+            }, 1500);
+        }
+        function classChanger(a, b) {
+            document.getElementById(a).setAttribute("class", a);
+            document.getElementById(b).setAttribute("class", b);
+        }
+        function login() {
+            var lIn = document.getElementById("loginId").value.toLowerCase();
+            var lPass = document.getElementById("loginPassword").value;
+            var data = JSON.parse(localStorage.getItem("data"));
+            if (lIn !== data.email) {
+                document.getElementById("loginId").setAttribute("class", "eror");
+                document.getElementById("li").setAttribute("class", "il");
+            }
+            if (lPass !== data.password) {
+                document.getElementById("loginPassword").setAttribute("class", "eror");
+                document.getElementById("lp").setAttribute("class", "pl");
+            }
+
+
+            if (lIn === data.email && lPass === data.password) {
+                var lIn = document.getElementById("loginId").value = "";
+                var lPass = document.getElementById("loginPassword").value = "";
+                document.write("Loding Your Profile Pleas wait..............");
+                setTimeout(function () { location = "./data/welcome.html" }, 1500);
+            }
+        }
+    </script>
+</body>
+
+</html>

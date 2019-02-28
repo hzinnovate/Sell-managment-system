@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <nav>
+        <h1 id="nav">
+            Sells.pk
+        </h1>
+        <button id="hb" onclick="empLog()">Employee Login</button>
+    </nav>
+    <div class="top">
+        <div id="smain">
+            <h1>
+                Administrator Login
+            </h1>
+            <span id="li" class="li">Incorrect Email</span>
+            <input type="email" id="loginId" placeholder="Type your Email" onfocus="classChanger('loginId' , 'li')">
+            <span id="lp" class="lp">Incorrect Password</span>
+            <input type="password" id="loginPassword" placeholder="Type your Password" onfocus="classChanger('loginPassword' , 'lp')">
+            <button onclick="adminLogin()">Login</button>
+        </div>
+    </div>
+    <script>
+        function empLog(){
+            document.write("Go Back to Employee Login page.....")
+            setTimeout(function(){
+            location = "./index.html"               
+            }, 1500);
+        }
+        function classChanger(a, b) {
+            document.getElementById(a).setAttribute("class", a);
+            document.getElementById(b).setAttribute("class", b);
+        }
+        function adminLogin() {
+            var lIn = document.getElementById("loginId").value.toLowerCase();
+            var lPass = document.getElementById("loginPassword").value;
+            if (lIn !== "admin") {
+                document.getElementById("loginId").setAttribute("class", "eror");
+                document.getElementById("li").setAttribute("class", "il");
+            }
+            if (lPass !== "123456789") {
+                document.getElementById("loginPassword").setAttribute("class", "eror");
+                document.getElementById("lp").setAttribute("class", "pl");
+            }
+
+
+            if (lIn === "admin" && lPass === "123456789") {
+                var lIn = document.getElementById("loginId").value = "";
+                var lPass = document.getElementById("loginPassword").value = "";
+                document.write("Loding Administrator Profile Pleas wait..............");
+                setTimeout(function () { location = "./data/store.html" }, 2000);
+            }
+        }
+
+    </script>
+</body>
+
+</html>

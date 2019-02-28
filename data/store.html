@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="../style.css" rel="stylesheet">
+    <style>
+        #h {
+            position: absolute;
+            top: 50px;
+            right: 10px;
+        }
+
+        #store {
+            padding-top: 110px;
+        }
+
+        .mainh {
+            display: block;
+            font-size: 2em;
+            color: black;
+        }
+
+        .btn {
+            margin-top: 3px; 
+            width: 20%;
+        }
+        .exbtn{
+            margin-top: 3px;
+            width: 10%
+        }
+
+        table {
+            margin: 0px auto;
+        }
+
+        body {
+            background-image: none;
+        }
+
+        .background {
+            background-image: url(../bg2.jpg);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            z-index: -10;
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            }
+        @media only screen and (max-width: 600px) {
+            .btn {
+                width: 50%;
+            }
+            .exbtn{
+                width: 25%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="background">
+        &nbsp;
+    </div>
+    <nav>
+        <h1 id="nav">
+            Sells.pk
+        </h1>
+        <button id="hb" onclick="logoutAdmin()">Logout</button>
+    </nav>
+    <button id="h" onclick="addPage()">Add New</button>
+    <div id="store">
+        <div id="items">
+            <h1>
+                Items
+            </h1>
+            <div id="main">
+
+            </div>
+        </div>
+        <div id="soldItems">
+            <h1>
+                Sold Items
+            </h1>
+            <div id="sold">
+
+            </div>
+        </div>
+
+    </div>
+    <script>
+      function  addPage(){
+          document.write("moving add page......")
+          setTimeout(function(){
+              location = "./add.html"
+          },1500)
+        }
+        function logoutAdmin(){
+            document.write("Logout your ID Pleas wait..............");
+            setTimeout(function(){ location = "../admin.html"; }, 1500);
+        }
+        function load() {
+            var prodect = JSON.parse(localStorage.getItem("prodect"));
+            return prodect;
+        }
+        var prodect = load();
+        function load2() {
+            var sales = JSON.parse(localStorage.getItem("sales"));
+            return sales;
+        }
+        var sales = load2();
+        function load3() {
+            var data = JSON.parse(localStorage.getItem("data"));
+            return data;
+        }
+        var data = load3();
+        var store = document.getElementById('main');
+        // for (var key in prodect) {
+        for (var key in prodect) {
+            var z = document.createElement('div');
+            z.setAttribute("class", 'sam');
+            var textB = document.createTextNode(prodect[key].name);
+            var span = document.createElement('span');
+            span.setAttribute("class", 'mainh');
+            span.appendChild(textB);
+            z.appendChild(span);
+
+            var button = document.createElement('button');
+            var btnTxt = document.createTextNode('Show Details');
+            button.appendChild(btnTxt);
+            button.setAttribute("id", 'openClose');
+            button.setAttribute("class", 'btn');
+            button.addEventListener("click", function () {
+                for (var i = 0; i < prodect.length; i++) {
+                    if (prodect[i].name === this.previousSibling.innerHTML) {
+                        var t = document.createElement('table');
+                        t.innerHTML = "<tr> <th>" + "Screen" + "</th>"
+                            + "<th>" + "Camera" + "</th>"
+                            + "<th>" + "Ram" + "</th>" + "<th>" + "Rom" + "</th>" + "<th>" + "Battry" + "</th>" + "</tr>"
+                            + "<tr>" +
+                            "<td>" + prodect[i].screen + "</td>"
+                            + "<td>" + prodect[i].camera + "</td>"
+                            + "<td>" + prodect[i].ram + "</td>"
+                            + "<td>" + prodect[i].rom + "</td>"
+                            + "<td>" + prodect[i].battry + "</td>"
+                            + "</tr>";
+                        var k = this.parentNode.nextSibling;
+                        k.innerHTML = "";
+                        var delBtn = document.createElement('button');
+                        var dbt = document.createTextNode('Dellet');
+                        delBtn.setAttribute("class", 'exbtn');
+                        delBtn.appendChild(dbt)
+                        delBtn.addEventListener("click", function(){
+                            var a = this.parentNode.previousSibling.firstChild.innerHTML;
+                            console.log(a)
+                            for(var key in prodect){
+                                if(prodect[key].name === a){
+                                    prodect.splice(key,1)
+                                    localStorage.setItem("prodect", JSON.stringify(prodect));
+                                }
+                            }
+                            this.parentNode.previousSibling.innerHTML = "";
+                            this.parentNode.innerHTML = "";
+                        })
+                        var edtBtn = document.createElement('button');
+                        var ebt = document.createTextNode('Edit');
+                        edtBtn.setAttribute("class", 'exbtn');
+                        edtBtn.appendChild(ebt)
+                        edtBtn.addEventListener("click", function(){
+                            var a = this.parentNode.previousSibling.firstChild.innerHTML;
+                            for(var i in prodect){
+                                if(prodect[i].name === a){
+                                    var edit = [];
+                                    edit.push(prodect[i])
+                                    prodect.splice(i,1)
+                                    localStorage.setItem("prodect", JSON.stringify(prodect));
+                                    localStorage.setItem("edit", JSON.stringify(edit));
+                                    this.parentNode.previousSibling.innerHTML = "";
+                            this.parentNode.innerHTML = "";
+                            setTimeout(function(){
+                                document.write("Moving Edit page......")
+                            location = "./edit.html";
+                            },2000)
+                                }
+                            }
+                        })
+                        k.appendChild(delBtn);
+                        k.appendChild(edtBtn)
+                        k.appendChild(t);
+                    }
+                }
+            })
+            z.appendChild(button);
+            var fTable = document.createElement('div');
+            fTable.setAttribute("id", 'table');
+            store.appendChild(z);
+            store.appendChild(fTable);
+        }
+        // }
+        var sold = document.getElementById('sold')
+        for (var key in sales) {
+            var z = document.createElement('div');
+            z.setAttribute("class", 'sam');
+            var textB = document.createTextNode(sales[key].name);
+            var span = document.createElement('span');
+            span.setAttribute("class", 'mainh');
+            span.appendChild(textB);
+            z.appendChild(span);
+
+            var button = document.createElement('button');
+            var btnTxt = document.createTextNode('Show Details');
+            button.appendChild(btnTxt);
+            button.setAttribute("id", 'openClose');
+            button.setAttribute("class", 'btn');
+            button.addEventListener("click", function () {
+                for (var key in sales) {
+                    if (sales[key].name === this.previousSibling.innerHTML) {
+                        var t = document.createElement('table');
+                        t.innerHTML = "<tr> <th>" + "Screen" + "</th>"
+                            + "<th>" + "Camera" + "</th>"
+                            + "<th>" + "Ram" + "</th>" + "<th>" + "Rom" + "</th>" + "<th>" + "Battry" + "</th>" + "</tr>"
+                            + "<tr>" +
+                            "<td>" + sales[key].screen + "</td>"
+                            + "<td>" + sales[key].camera + "</td>"
+                            + "<td>" + sales[key].ram + "</td>"
+                            + "<td>" + sales[key].rom + "</td>"
+                            + "<td>" + sales[key].battry + "</td>"
+                            + "</tr>";
+                        var k = this.parentNode.nextSibling;
+                        k.innerHTML = "";
+                        k.appendChild(t);
+                    }
+                }
+            })
+            z.appendChild(button);
+            var fTable = document.createElement('div');
+            fTable.setAttribute("id", 'table');
+            sold.appendChild(z);
+            var b = document.createElement("button");
+            var btxt = document.createTextNode("Add to items")
+            b.setAttribute("class", "btn");
+            b.addEventListener("click", function () {
+                var q = this.parentNode.firstChild.innerHTML;
+                for (var i in sales) {
+                    if (sales[i].name === q) {
+                        prodect.push(sales[i])
+                            localStorage.setItem("prodect", JSON.stringify(prodect));
+                        sales.splice(i,1)
+                        localStorage.setItem("sales", JSON.stringify(sales));
+                        this.parentNode.innerHTML = " ";
+
+                    }
+                }
+            })
+            b.appendChild(btxt)
+            z.appendChild(b);
+            sold.appendChild(fTable);
+        }
+
+    </script>
+</body>
+
+</html>

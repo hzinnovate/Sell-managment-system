@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav>
+        <h1 id="nav">
+            Sells.pk
+        </h1>
+        <button id="hb" onclick="window.open('./admin.html','_blank')">Admin Panel</button>
+    </nav>
+    <div class="top">
+
+        <div id="smain">
+            <h1>
+                Signup form
+            </h1>
+            <span id="fn" class="fn">Please enter your first name</span>
+            <input type="text" id="fName" placeholder="First name" onfocus="classChanger('fName','fn')" />
+            <span id="ln" class="ln">Please enter your last name</span>
+            <input type="text" id="lName" placeholder="Last name" onfocus="classChanger('lName','ln')" />
+            <span id="em" class="em">Please enter your email</span>
+            <input type="email" id="email" placeholder="Email" onfocus="classChanger('email','em')" />
+            <span id="ps" class="ps">Please enter a password</span>
+            <input type="password" id="password" placeholder="Password" onfocus="classChanger('password' , 'ps')" />
+            <button type="submit" onclick="pickData()">SignUp</button>
+        </div>
+    </div>
+    <script>
+        function classChanger(a, b) {
+            document.getElementById(a).setAttribute("class", a);
+            document.getElementById(b).setAttribute("class", b);
+        }
+        function pickData() {
+            var fName = document.getElementById("fName").value.toLowerCase();
+            var lName = document.getElementById("lName").value.toLowerCase();
+            var email = document.getElementById("email").value.toLowerCase();
+            var password = document.getElementById("password").value;
+            var filter = /^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9]{2,4})+$/;
+            var check = true;
+            if ((fName !== "" && fName !== " ") && (lName !== "" && lName !== " ") && (email !== "" && email !== " ") && (password !== "" && password !== " ")) {
+
+                var firstName = fName.charAt(0).toUpperCase() + fName.substr(1);
+                var lastName = lName.charAt(0).toUpperCase() + lName.substr(1);
+                var fullName = firstName + " " + lastName;
+                var store = {
+                    fullName: fullName,
+                    email: email,
+                    password: password
+                }
+                localStorage.setItem("data", JSON.stringify(store));
+                document.getElementById("fName").value = "";
+                document.getElementById("lName").value = "";
+                document.getElementById("email").value = "";
+                document.getElementById("password").value = "";
+                document.write("Creating New ID Pleas wait..............");
+                setTimeout(function () { location = "./index.html" }, 1500);
+            } else {
+                if (fName === "" || fName === " ") {
+                    document.getElementById("fName").setAttribute("class", "eror");
+                    var q = document.getElementById("fn");
+                    q.setAttribute("class", "nf")
+                }
+                if (lName === "" || lName === " ") {
+                    document.getElementById("lName").setAttribute("class", "eror");
+                    var w = document.getElementById("ln");
+                    w.setAttribute("class", "nl")
+                } if (email === "" || email === " ") {
+                    document.getElementById("email").setAttribute("class", "eror");
+                    var e = document.getElementById("em");
+                    e.setAttribute("class", "me")
+                    check = false;
+                } if (password === "" || password === " ") {
+                    document.getElementById("password").setAttribute("class", "eror");
+                    var r = document.getElementById("ps");
+                    r.setAttribute("class", "sp")
+                }
+                if (!filter.test(email) && check) {
+                    document.getElementById("email").setAttribute("class", "eror");
+                    document.getElementById("email").value = "Pleas Enter Valid Email"
+                    var e = document.getElementById("em");
+                    e.setAttribute("class", "me")
+                }
+            }
+        }
+
+    </script>
+</body>
+
+</html>

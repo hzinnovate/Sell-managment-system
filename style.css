@@ -1,0 +1,136 @@
+span{
+    color: red;
+    font-weight: bolder;
+    letter-spacing: 2px;
+    word-spacing: 4px;
+}
+body {
+    /* overflow: hidden; */
+    background-image: url("bg2.jpg");
+     height: -webkit-fill-available;
+     /* height: 100%; */
+     background-position: center;
+     background-repeat: no-repeat;
+     background-size: cover;
+     /* position: relative; */
+     font-size:100%;
+     text-align: center;
+     padding: 0px;
+     margin: 0px;
+}
+.top{
+    padding-top: 75px;
+}
+#smain{
+    box-shadow: 0px 10px 40px inset white;
+    border-radius: 10px;
+    width:60%;
+    margin: 0px auto;
+}
+h1, .mainh{
+    font-size: 350%;
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 12px;
+    font-size: 3.5em;
+    color: darkgray;
+    text-shadow: 0px 0px 10px black;
+
+}
+    input{
+        display:block;
+        border-radius:5px;
+        border:none;
+        background:rgb(0, 0, 0);
+        font-size:18px;
+        line-height:16px;
+        font-weight: bolder;
+        text-align: center;
+        width: 50%;
+        padding:15px;
+        margin:0 auto 10px auto;
+        opacity:.5;
+        outline:none;
+        box-shadow:0 0 0 1px rgba(0,0,0,.0);
+        transition:.25s ease-in-out;
+        color: rgb(255, 255, 255);
+        letter-spacing: 1px;
+    text-shadow: 0px 0px 2px;
+}
+input:focus {
+    background-color: white;
+    color: black;
+}
+button {
+    box-shadow: 0px 40px 100px inset white;
+    border:none;
+    border-radius:5px;
+    width: 25%;
+    font-size:18px;
+    font-weight: bolder;
+    padding:10px;
+    letter-spacing: 1px;
+    opacity:.5;
+    background: none;
+    color: black;
+    outline: none;
+    transition:.50s ease-in-out;
+}
+button:hover{
+    opacity: 1;
+    color: rgb(102, 102, 102);
+}
+button:active{
+    opacity: .5;
+    color: black;
+    transition:none;
+}
+.ps,.em,.fn,.ln,.lp,.li{
+    display: none;
+}
+.eror{
+    background: white;
+    opacity: 1;
+    border: 2px solid red;
+    /* font-size: 20px; */
+    box-shadow: 0px 0px 40px inset red;
+    transition: all .5s;
+    color: red;
+}
+
+#disp{
+    padding-top: 10%;
+
+}
+#hb{
+    float: right;
+    position: absolute;
+    right: 10px;
+    top: 5px;
+}
+#nav{
+    position: absolute;
+    top: 7px;
+    left: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+
+#smain{
+    width: 90%;
+}
+input{
+    width: 75%;
+}
+button{
+    width: 50%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+h1{
+    font-size: 250%;
+}
+#disp{
+    padding-top: 20%;
+}
+}

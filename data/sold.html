@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+    #sellpage{
+        padding-top: 10px;
+    }
+    .mainh{
+    display: block;
+    font-size: 2em;
+    color: black;
+    }
+    .btn{
+        width: 20%;
+    }
+    table{
+        margin: 0px auto;
+    }
+    body{
+       background-image: none;
+    }
+    .background{
+        background-image: url(../bg2.jpg);
+        background-position: center;
+     background-repeat: no-repeat;
+     background-size: cover;
+     z-index: -10;
+     width: 100%;
+     height: 100%;
+     position:fixed;
+    }
+    .b{
+
+    margin-top: 0px;
+}
+#n{
+    text-align: center;
+    margin-top: -5px;
+    /* position: none; */
+    /* top: 7px;
+    left: 10px; */
+}
+    @media only screen and (max-width: 600px) {
+        .btn{
+            width: 40%;
+        }
+        .b{
+            width: 125px;
+        }
+        #m{
+            width: 90px;
+        }
+    }
+    </style>
+</head>
+<body onload="load()">
+        <div class="background">
+                &nbsp;
+            </div>
+            <nav>
+                <h1 id="n">
+                    Sells.pk
+                </h1>
+                <button id="m" class="b" onclick="window.open('../admin.html','_blank')">Admin</button>
+                <button class="b" onclick="goBack()">Go Back</button>
+                <button id="m" class="b" onclick="logoutUser()">Logout</button>
+            </nav>
+    <div id="soldpage">
+        
+    </div>
+    <script>
+         function logoutUser(){
+            document.write("Logout your ID Pleas wait..............");
+            setTimeout(function(){ location = "../index.html"; }, 1500);
+        }
+        function goBack(){
+            document.write("going back...")
+            setTimeout(function(){
+                location = "./welcome.html"
+            },1500)
+        }
+        function load2(){
+        var sales = JSON.parse(localStorage.getItem("sales"));
+        return sales;
+    }
+    var sales = load2();
+    function load3(){
+        var data = JSON.parse(localStorage.getItem("data"));
+        return data;
+    }
+    var data = load3();
+
+    function load(){
+        var main = document.getElementById('soldpage');
+        main.innerHTML = " ";
+        for(var key in sales){
+            var m = document.createElement('div');
+            m.setAttribute("class" , "mainh")
+            var mtxt = document.createTextNode(sales[key].name);
+            m.appendChild(mtxt);
+            main.appendChild(m)
+            var t = document.createElement('table');
+                            t.innerHTML = "<tr> <th>" + "Screen" + "</th>" 
+                            + "<th>" + "Camera" + "</th>"
+                            + "<th>" + "Ram" + "</th>" + "<th>" + "Rom" + "</th>" + "<th>" + "Battry" + "</th>" + "</tr>"
+                            +"<tr>"+
+                            "<td>" + sales[key].screen + "</td>" 
+                            +"<td>" + sales[key].camera +"</td>"
+                            +"<td>" + sales[key].ram + "</td>"
+                            +"<td>"+ sales[key].rom + "</td>"
+                            +"<td>" + sales[key].battry + "</td>"
+                            +"</tr>";
+            main.appendChild(t)
+            }
+        }
+    </script>
+</body>
+</html>
